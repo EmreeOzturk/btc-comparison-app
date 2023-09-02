@@ -1,5 +1,5 @@
 import { useState } from "react"
-import Input from "./components/Input"
+import AmountInput from "./components/AmountInput"
 
 function App() {
   const [amount, setAmount] = useState('')
@@ -9,10 +9,15 @@ function App() {
         bg-gradient-to-br from-indigo-400 to-purple-800 bg-clip-text text-transparent from-20%
       ">Find <b>cheapest</b> BTC </h1>
       <div className="flex justify-center mt-10">
-        <Input
+        <AmountInput
           value={amount}
-          onChange={e => setAmount(e.target.value)}
+          onChange={
+            (e) => setAmount(e.target.value)
+          }
         />
+      </div>
+      <div className="mt-10">
+        result
       </div>
     </main>
   )
