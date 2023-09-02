@@ -1,5 +1,6 @@
 import { useState } from "react"
 import AmountInput from "./components/AmountInput"
+import ResultRow from "./components/ResultRow"
 
 function App() {
   const [amount, setAmount] = useState('')
@@ -17,7 +18,10 @@ function App() {
         />
       </div>
       <div className="mt-10">
-        result
+        <ResultRow />
+        <ResultRow />
+        <ResultRow />
+        <ResultRow />
       </div>
     </main>
   )
