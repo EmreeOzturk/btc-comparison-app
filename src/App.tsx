@@ -39,7 +39,7 @@ function App() {
   return (
 
     <main className={`max-w-3xl mx-auto p-8 ${!amount && 'h-screen'}`}>
-      <Fade>
+      <Fade cascade>
         <Header />
         <AmountInput
           value={amount}
@@ -71,7 +71,7 @@ function App() {
                   (a.btc > b.btc) ? -1 : ((b.btc > a.btc) ? 1 : 0)
                 ).map((item: Cached) => {
                   return (
-                    <Fade key={item.id}>
+                    <Fade cascade key={item.id}>
                       <ResultRow
                         logo={logos[item.provider]}
                         key={item.id}
