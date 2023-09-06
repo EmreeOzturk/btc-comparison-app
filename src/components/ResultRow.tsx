@@ -6,7 +6,6 @@ const ResultRow: React.FC<ResultRowProps> = ({
     logo
 }) => {
 
-
     if (loading) {
         return (
             <div className="border rounded-lg border-white/20 p-4

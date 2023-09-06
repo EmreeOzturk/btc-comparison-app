@@ -14,7 +14,7 @@ import { LOGOS } from "./consts.ts"
 
 function App() {
   const [amount, setAmount] = useState('')
-  const [cached, setCached] = useState([])
+  const [cached, setCached] = useState<Cached[]>([]);
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(true)
