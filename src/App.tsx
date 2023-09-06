@@ -7,10 +7,11 @@ import banxa from "./assets/banxa.png"
 import moonpay from "./assets/moonpay.png"
 import transak from "./assets/transak.png"
 import guardian from "./assets/guardian.svg"
+import Header from "./components/Header"
 function App() {
   const [amount, setAmount] = useState('')
   const [cached, setCached] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(true)
     axios.get('https://hjidbztxxw.us.aircode.run/cachedValues').then((res) => {
@@ -28,49 +29,55 @@ function App() {
     guardian
   }
   return (
-    <main className=" max-w-3xl mx-auto p-8">
-      <h1 className="uppercase text-6xl text-center font-bold
-        bg-gradient-to-br from-indigo-400 to-purple-800 bg-clip-text text-transparent from-20%
-      ">Find <b>cheapest</b> BTC </h1>
-      <div className="flex justify-center my-6">
-        <AmountInput
-          value={amount}
-          onChange={
-            (e) => setAmount(e.target.value)
-          }
-        />
-      </div>
+    <main className={`max-w-3xl mx-auto p-8 ${!amount && 'h-screen' }`}>
+      <Header />
+      <AmountInput
+        value={amount}
+        onChange={
+          (e) => setAmount(e.target.value)
+        }
+      />
       {
-        loading && (
-          <div>
-            <ResultRow loading={loading} />
-            <ResultRow loading={loading} />
-            <ResultRow loading={loading} />
-            <ResultRow loading={loading} />
-            <ResultRow loading={loading} />
+        !amount ? (
+          <div className="flex justify-center my-6">
+            <div className='bg-blue-950 border border-white/10 rounded-md'>
+              <span className='text-white/60  px-4'>
+                Enter Amount
+              </span>
+            </div>
+          </div>
+        ) : (
+          loading ? (
+            <div>
+              <ResultRow loading={true} />
+              <ResultRow loading={true} />
+              <ResultRow loading={true} />
+              <ResultRow loading={true} />
+              <ResultRow loading={true} />
+            </div>
+          ) : <div>
+            {
+              cached.map((item: {
+                id: string,
+                provider: string,
+                btc: string
+              }) => {
+                return (
+                  <ResultRow
+                    logo={logos[item.provider]}
+                    key={item.id}
+                    loading={loading}
+                    provider={item?.provider}
+                    btc={item?.btc}
+                  />
+                )
+              }
+              )
+            }
           </div>
         )
       }
-      <div>
-        {
-          cached.map((item: {
-            id: string,
-            provider: string,
-            btc: number
-          }) => {
-            return (
-              <ResultRow
-                logo={logos[item.provider]}
-                key={item.id}
-                loading={loading}
-                provider={item?.provider}
-                btc={item?.btc}
-              />
-            )
-          }
-          )
-        }
-      </div>
+
     </main>
   )
 }

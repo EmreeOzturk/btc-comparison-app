@@ -15,6 +15,7 @@ const ResultRow: React.FC<ResultRowProps> = ({
         minimumFractionDigits: 8,
         maximumFractionDigits: 8,
     }).format(parseFloat(btc as string));
+
     if (loading) {
         return (
             <div className="border rounded-lg border-white/20 p-4
