@@ -2,15 +2,10 @@ import { useState, useEffect } from "react"
 import AmountInput from "./components/AmountInput"
 import ResultRow from "./components/ResultRow"
 import axios from 'axios'
-// import paybis from "./assets/paybis.png"
-// import banxa from "./assets/banxa.png"
-// import moonpay from "./assets/moonpay.png"
-// import transak from "./assets/transak.png"
-// import guardian from "./assets/guardian.svg"
 import Header from "./components/Header"
 import { Fade } from "react-awesome-reveal";
 import { Cached } from "../types";
-import { LOGOS } from "./consts.ts"
+import { LOGOS, CACHED_URL } from "./consts.ts"
 
 function App() {
   const [amount, setAmount] = useState('')
@@ -18,22 +13,14 @@ function App() {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     setLoading(true)
-    axios.get('https://hjidbztxxw.us.aircode.run/cachedValues').then((res) => {
+    axios.get(CACHED_URL).then((res) => {
       console.log(res.data)
       setCached(res.data)
       setLoading(false)
     }
     )
   }, [])
-  // const logos: { [key: string]: string } = {
-  //   paybis,
-  //   banxa,
-  //   moonpay,
-  //   transak,
-  //   guardian
-  // }
   return (
-
     <main className={`max-w-3xl mx-auto p-8 ${!amount && 'h-screen'}`}>
       <Fade cascade>
         <Header />
@@ -63,9 +50,7 @@ function App() {
               </div>
             ) : <div>
               {
-                cached.sort((a: Cached, b: Cached) =>
-                  (a.btc > b.btc) ? -1 : ((b.btc > a.btc) ? 1 : 0)
-                ).map((item: Cached) => {
+                cached.sort((a: Cached, b: Cached) => parseFloat(b.btc) - parseFloat(a.btc)).map((item: Cached) => {
                   return (
                     <Fade cascade key={item.id}>
                       <ResultRow

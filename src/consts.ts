@@ -13,3 +13,5 @@ export const LOGOS: {
   transak,
   guardian,
 };
+
+export const CACHED_URL = "https://hjidbztxxw.us.aircode.run/cachedValues";
