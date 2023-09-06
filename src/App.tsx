@@ -2,6 +2,11 @@ import { useState, useEffect } from "react"
 import AmountInput from "./components/AmountInput"
 import ResultRow from "./components/ResultRow"
 import axios from 'axios'
+import paybis from "./assets/paybis.png"
+import banxa from "./assets/banxa.png"
+import moonpay from "./assets/moonpay.png"
+import transak from "./assets/transak.png"
+import guardian from "./assets/guardian.svg"
 function App() {
   const [amount, setAmount] = useState('')
   const [cached, setCached] = useState([])
@@ -15,6 +20,13 @@ function App() {
     }
     )
   }, [])
+  const logos: { [key: string]: string } = {
+    paybis,
+    banxa,
+    moonpay,
+    transak,
+    guardian
+  }
   return (
     <main className=" max-w-3xl mx-auto p-8">
       <h1 className="uppercase text-6xl text-center font-bold
@@ -48,6 +60,7 @@ function App() {
           }) => {
             return (
               <ResultRow
+                logo={logos[item.provider]}
                 key={item.id}
                 loading={loading}
                 provider={item?.provider}

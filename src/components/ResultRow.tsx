@@ -3,12 +3,13 @@ type ResultRowProps = {
     loading?: boolean
     provider?: string
     btc?: number
+    logo?: string
 }
 
 const ResultRow: React.FC<ResultRowProps> = ({
     loading = true,
-    provider,
-    btc
+    btc,
+    logo
 }) => {
     if (loading) {
         return (
@@ -22,9 +23,8 @@ const ResultRow: React.FC<ResultRowProps> = ({
         <div className="border min-h-12 rounded-lg border-white/20 p-4
         bg-gradient-to-r from-indigo-400/30 to-purple-800/10 my-2
     ">
-            <div className="flex gap-4">
-                <div>logo</div>
-                <div className="flex-1 ">{provider?.toUpperCase()}</div>
+            <div className="flex gap-4 justify-between px-8  items-center">
+                <img src={logo} alt="logo" className="w-44 h-10 object-contain" />
                 <div className="flex items-center gap-2">
                     <span className="text-xl text-purple-200/80">{btc}</span>
                     <span className="text-xl text-purple-200/60">BTC</span>
