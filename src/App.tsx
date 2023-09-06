@@ -77,7 +77,9 @@ function App() {
                         key={item.id}
                         loading={loading}
                         provider={item?.provider}
-                        btc={item?.btc}
+                        btc={
+                          (+amount * parseFloat(item.btc) / 100).toString()
+                        }
                       />
                     </Fade>
                   )

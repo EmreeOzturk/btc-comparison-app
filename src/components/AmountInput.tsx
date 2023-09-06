@@ -14,6 +14,7 @@ const AmountInput: React.FC<InputProps> = ({
                     onChange={setAmount}
                     placeholder='Amount'
                     className='border-0 w-28 pl-4 focus:ring-0 focus:outline-none'
+                    type='number'
                 />
                 <span className='text-white/60  px-4'>
                     USD
