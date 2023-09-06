@@ -8,6 +8,14 @@ import moonpay from "./assets/moonpay.png"
 import transak from "./assets/transak.png"
 import guardian from "./assets/guardian.svg"
 import Header from "./components/Header"
+import { Fade } from "react-awesome-reveal";
+
+type Cached = {
+  id: string,
+  provider: string,
+  btc: string
+}
+
 function App() {
   const [amount, setAmount] = useState('')
   const [cached, setCached] = useState([])
@@ -29,55 +37,57 @@ function App() {
     guardian
   }
   return (
-    <main className={`max-w-3xl mx-auto p-8 ${!amount && 'h-screen' }`}>
-      <Header />
-      <AmountInput
-        value={amount}
-        onChange={
-          (e) => setAmount(e.target.value)
-        }
-      />
-      {
-        !amount ? (
-          <div className="flex justify-center my-6">
-            <div className='bg-blue-950 border border-white/10 rounded-md'>
-              <span className='text-white/60  px-4'>
-                Enter Amount
-              </span>
+
+    <main className={`max-w-3xl mx-auto p-8 ${!amount && 'h-screen'}`}>
+      <Fade>
+        <Header />
+        <AmountInput
+          value={amount}
+          onChange={
+            (e) => setAmount(e.target.value)
+          }
+        />
+        {
+          !amount ? (
+            <div className="flex justify-center my-6">
+              <div className='bg-blue-950 border border-white/10 rounded-md'>
+                <span className='text-white/60  px-4'>
+                  Enter Amount
+                </span>
+              </div>
             </div>
-          </div>
-        ) : (
-          loading ? (
-            <div>
-              <ResultRow loading={true} />
-              <ResultRow loading={true} />
-              <ResultRow loading={true} />
-              <ResultRow loading={true} />
-              <ResultRow loading={true} />
-            </div>
-          ) : <div>
-            {
-              cached.map((item: {
-                id: string,
-                provider: string,
-                btc: string
-              }) => {
-                return (
-                  <ResultRow
-                    logo={logos[item.provider]}
-                    key={item.id}
-                    loading={loading}
-                    provider={item?.provider}
-                    btc={item?.btc}
-                  />
+          ) : (
+            loading ? (
+              <div>
+                <ResultRow loading={true} />
+                <ResultRow loading={true} />
+                <ResultRow loading={true} />
+                <ResultRow loading={true} />
+                <ResultRow loading={true} />
+              </div>
+            ) : <div>
+              {
+                cached.sort((a: Cached, b: Cached) =>
+                  (a.btc > b.btc) ? -1 : ((b.btc > a.btc) ? 1 : 0)
+                ).map((item: Cached) => {
+                  return (
+                    <Fade key={item.id}>
+                      <ResultRow
+                        logo={logos[item.provider]}
+                        key={item.id}
+                        loading={loading}
+                        provider={item?.provider}
+                        btc={item?.btc}
+                      />
+                    </Fade>
+                  )
+                }
                 )
               }
-              )
-            }
-          </div>
-        )
-      }
-
+            </div>
+          )
+        }
+      </Fade>
     </main>
   )
 }
