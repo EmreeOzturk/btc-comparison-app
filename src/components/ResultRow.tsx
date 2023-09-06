@@ -1,20 +1,11 @@
-
-type ResultRowProps = {
-    loading?: boolean
-    provider?: string
-    btc?: string
-    logo?: string
-}
-
+import { ResultRowProps } from "../../types";
+import { formattedValue } from "../utils";
 const ResultRow: React.FC<ResultRowProps> = ({
     loading = true,
     btc,
     logo
 }) => {
-    const formattedValue = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 8,
-        maximumFractionDigits: 8,
-    }).format(parseFloat(btc as string));
+
 
     if (loading) {
         return (
@@ -29,9 +20,11 @@ const ResultRow: React.FC<ResultRowProps> = ({
         bg-gradient-to-r from-indigo-400/30 to-purple-800/10 my-2
     ">
             <div className="flex gap-4 justify-between px-8  items-center">
-                <img src={logo} alt="logo" className="w-44 h-10 object-contain" />
+                <img src={
+                    logo
+                } alt="logo" className="w-44 h-10 object-contain" />
                 <div className="flex items-center gap-2">
-                    <span className="text-xl text-purple-200/80"> {formattedValue}</span>
+                    <span className="text-xl text-purple-200/80"> {formattedValue(btc as string)}</span>
                     <span className="text-xl text-purple-200/60">BTC</span>
                 </div>
             </div>
